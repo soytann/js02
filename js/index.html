@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>myMemoPad</title>
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<link href="https://fonts.googleapis.com/css?family=Corben:700 rel= "stylesheet">
+
+</head>
+<body>
+<header>
+<h1>Film memo 🎞️</h1>
+</header>
+<main>
+    <form action="" method="post">
+        <input type="text" id="key" placeholder="タイトル">
+    </form>
+    <div id="star">
+        <span class="star" id="1">★</span>
+        <span class="star" id="2">★</span>
+        <span class="star" id="3">★</span>
+        <span class="star" id="4">★</span>
+        <span class="star" id="5">★</span>
+    </div>
+    <textarea id="memo"></textarea>
+    <ul>
+        <li id="save">Save</li>
+        <li id="clear">Clear</li>
+    </ul>
+</main>
+<table id="list">
+<!-- ここに追加データが挿入される -->
+</table>
+<script>
+
+//1.Save クリックイベント
+$("#save").on("click",function(){
+    const key = $("#key").val();  //データを取得
+    const value =$("#memo").val();
+    const star = $("#star").val();
+    
+    const data = {key, value};
+    localStorage.setItem("data", JSON.stringify(data));
+    const html = '<tr><td>'+key+'</td><td>'+star+'</td><td>'+value+'</td></tr>';
+    $("#list").append(html);
+
+    $("key").val("");
+    $("star").val("");
+    $("memo").val("");
+    
+
+});
+
+
+
+
+
+//2.clear クリックイベント
+
+$("#clear").on("click",function(){
+    localStorage.clear();
+    $("#list").empty();
+    
+
+
+});
+
+
+
+//3.ページ読み込み：保存データ取得表示
+for(let i=0; i<localStorage.length; i++){
+    const key = localStorage.key(i);
+    const value =localStorage.getItem(key);
+    JSON.parse(localStorage.getItem("datalist"));  
+    const html ='<tr><td>'+key+'</td><td>'+value+'</td><td>'+star+'</td></tr>';
+
+
+    $("#list").append(html);
+}
+
+const stars = document.getElementsByClassName("star");
+let clicked = false;
+document.addEventListener("DOMContentLoaded", () => {
+  for (let i = 0; i < stars.length; i++) {
+    stars[i].addEventListener(
+      "mouseover",
+      () => {
+        if (!clicked) {
+          for (let j = 0; j <= i; j++) {
+            stars[j].style.color = "#f0da61";
+          }
+        }
+      },
+      false
+    );
+
+    stars[i].addEventListener(
+      "mouseout",
+      () => {
+        if (!clicked) {
+          for (let j = 0; j < stars.length; j++) {
+            stars[j].style.color = "#a09a9a";
+          }
+        }
+      },
+      false
+    );
+
+    stars[i].addEventListener(
+      "click",
+      () => {
+        clicked = true;
+        for (let j = 0; j <= i; j++) {
+          stars[j].style.color = "#f0da61";
+        }
+        for (let j = i + 1; j < stars.length; j++) {
+          stars[j].style.color = "#a09a9a";
+        }
+      },
+      false
+    );
+  }
+});
+
+
+</script>
+
+</body>
+</html>
