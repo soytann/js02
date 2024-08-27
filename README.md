@@ -1,5 +1,7 @@
 # 課題3 -MemoPadアプリを再作成-
-​
+デプロイURL
+- ​https://whitepony4.sakura.ne.jp/kadai/
+- 
 ## ①課題内容（どんな作品か）
 - 鑑賞した映画のメモ
 ​
